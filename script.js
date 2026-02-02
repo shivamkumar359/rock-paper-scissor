@@ -8,11 +8,19 @@ const rules = {
     paper: "rock"
 };
 
+const playerInput = document.getElementById("playerInput");
+const loader = document.getElementById("loader");
+const resultBox = document.getElementById("resultBox");
+
+const playerChoiceText = document.getElementById("playerChoice");
+const computerChoiceText = document.getElementById("computerChoice");
+const resultText = document.getElementById("resultText");
+
+const playerScoreText = document.getElementById("playerScore");
+const computerScoreText = document.getElementById("computerScore");
+
 function playGame() {
-    const input = document.getElementById("playerInput");
-    const playerChoice = input.value.trim().toLowerCase();
-    const loader = document.getElementById("loader");
-    const resultBox = document.getElementById("resultBox");
+    const playerChoice = playerInput.value.trim().toLowerCase();
 
     if (!options.includes(playerChoice)) {
         alert("Please enter rock, paper, or scissor");
@@ -25,30 +33,35 @@ function playGame() {
     setTimeout(() => {
         loader.style.display = "none";
 
-        const computerChoice = options[Math.floor(Math.random() * options.length)];
-        let result;
+        const computerChoice =
+            options[Math.floor(Math.random() * options.length)];
+
+        let resultMessage = "";
 
         if (playerChoice === computerChoice) {
-            result = "It's a tie 🤝";
+            resultMessage = "It's a tie 🤝";
         } else if (rules[playerChoice] === computerChoice) {
-            result = "You win 🎉";
+            resultMessage = "You win 🎉";
             playerScore++;
+
+            document.body.classList.add("hurrah");
+            setTimeout(() => {
+                document.body.classList.remove("hurrah");
+            }, 2000);
         } else {
-            result = "Computer wins 💻";
+            resultMessage = "Computer wins 💻";
             computerScore++;
         }
 
-        document.getElementById("playerChoice").innerText =
-            "You chose: " + playerChoice;
-        document.getElementById("computerChoice").innerText =
-            "Computer chose: " + computerChoice;
-        document.getElementById("resultText").innerText = result;
+        playerChoiceText.innerText = "You chose: " + playerChoice;
+        computerChoiceText.innerText = "Computer chose: " + computerChoice;
+        resultText.innerText = resultMessage;
 
-        document.getElementById("playerScore").innerText = playerScore;
-        document.getElementById("computerScore").innerText = computerScore;
+        playerScoreText.innerText = playerScore;
+        computerScoreText.innerText = computerScore;
 
         resultBox.style.display = "block";
-        input.value = "";
+        playerInput.value = "";
     }, 600);
 }
 
@@ -56,7 +69,17 @@ function resetScore() {
     playerScore = 0;
     computerScore = 0;
 
-    document.getElementById("playerScore").innerText = 0;
-    document.getElementById("computerScore").innerText = 0;
-    document.getElementById("resultBox").style.display = "none";
+    playerScoreText.innerText = 0;
+    computerScoreText.innerText = 0;
+    resultBox.style.display = "none";
 }
+
+function submitFeedback() {
+    alert("Thanks for your feedback! 🙌");
+}
+
+playerInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        playGame();
+    }
+});
