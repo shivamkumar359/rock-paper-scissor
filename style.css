@@ -1,3 +1,4 @@
+/* ===== Background Gradient ===== */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -22,7 +23,7 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* Floating background */
+/* ===== Floating Background ===== */
 .background {
     position: fixed;
     width: 100%;
@@ -52,10 +53,12 @@ body {
     100% { transform: translateY(-110vh); opacity: 0; }
 }
 
+/* ===== Text ===== */
 h1, .score-board {
     color: white;
 }
 
+/* ===== Input ===== */
 input {
     padding: 12px;
     width: 260px;
@@ -64,6 +67,7 @@ input {
     border: none;
 }
 
+/* ===== Buttons with Glow ===== */
 button {
     padding: 12px 25px;
     font-size: 16px;
@@ -73,22 +77,37 @@ button {
     background: #007bff;
     color: white;
     cursor: pointer;
+
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background: #0056b3;
+    box-shadow:
+        0 0 12px rgba(0, 123, 255, 0.8),
+        0 0 25px rgba(0, 123, 255, 0.6);
+    transform: translateY(-2px);
 }
 
+button:active {
+    transform: scale(0.97);
+}
+
+/* Reset button glow */
 .reset-btn {
     margin-top: 20px;
     background: #dc3545;
+    box-shadow: 0 0 8px rgba(220, 53, 69, 0.6);
 }
 
 .reset-btn:hover {
     background: #a71d2a;
+    box-shadow:
+        0 0 12px rgba(220, 53, 69, 0.8),
+        0 0 25px rgba(220, 53, 69, 0.6);
 }
 
-/* Loader */
+/* ===== Loader ===== */
 .loader {
     margin: 30px auto;
     width: 50px;
@@ -104,7 +123,7 @@ button:hover {
     to { transform: rotate(360deg); }
 }
 
-/* Result */
+/* ===== Result Box ===== */
 .result-box {
     margin-top: 30px;
     background: white;
@@ -117,4 +136,17 @@ button:hover {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Signature ===== */
+.credit {
+    position: fixed;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 1px;
+    pointer-events: none;
 }
