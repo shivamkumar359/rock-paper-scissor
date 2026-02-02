@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Rock Paper Scissors</title>
-    <link rel="stylesheet" href="style.css">
+
+    <!-- Curly font for signature -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Background animation -->
+    <!-- Animated background bubbles -->
     <div class="background">
         <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- Outline sticker shapes -->
+    <div class="stickers">
+        <span class="circle"></span>
+        <span class="square"></span>
+        <span class="triangle"></span>
+        <span class="star"></span>
     </div>
 
     <h1>Rock 🪨 Paper 📄 Scissors ✂️</h1>
@@ -24,7 +35,7 @@
         <input
             type="text"
             id="playerInput"
-            placeholder="Enter rock, paper, or scissor"
+            placeholder="hello player enter your choice"
         >
         <button onclick="playGame()">Play</button>
     </div>
@@ -39,11 +50,26 @@
 
     <button class="reset-btn" onclick="resetScore()">Reset Score</button>
 
-    <script src="script.js"></script>
+    <!-- Feedback -->
+    <div class="feedback">
+        <h3>Feedback 💬</h3>
+        <textarea placeholder="Tell me what you think about the game..."></textarea>
+        <br>
+        <button onclick="submitFeedback()">Submit</button>
 
+        <p class="github-link">
+            🔗 GitHub:
+            <a href="https://github.com/YOUR_USERNAME" target="_blank">
+                https://github.com/YOUR_USERNAME
+            </a>
+        </p>
+    </div>
+
+    <!-- Signature -->
     <footer class="credit">
-    Designed by Shivam
-</footer>
+        Designed by Shivam
+    </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
