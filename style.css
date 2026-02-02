@@ -1,124 +1,198 @@
-/* ================================
-   Rock Paper Scissors Game (JS)
-   Designed to work with:
-   - Animated background
-   - Loader animation
-   - Result fade-in
-   - Glow buttons
-   ================================ */
+/* ===== Background Gradient ===== */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 40px;
+    min-height: 100vh;
+    overflow-x: hidden;
 
-/* ----- Game State ----- */
-let playerScore = 0;
-let computerScore = 0;
-
-/* ----- Game Options ----- */
-const options = ["rock", "paper", "scissor"];
-
-/* Rules:
-   key beats value
-   rock     -> scissor
-   scissor  -> paper
-   paper    -> rock
-*/
-const rules = {
-    rock: "scissor",
-    scissor: "paper",
-    paper: "rock"
-};
-
-/* ----- DOM Elements ----- */
-const playerInput = document.getElementById("playerInput");
-const loader = document.getElementById("loader");
-const resultBox = document.getElementById("resultBox");
-
-const playerChoiceText = document.getElementById("playerChoice");
-const computerChoiceText = document.getElementById("computerChoice");
-const resultText = document.getElementById("resultText");
-
-const playerScoreText = document.getElementById("playerScore");
-const computerScoreText = document.getElementById("computerScore");
-
-/* ================================
-   Main Game Function
-   ================================ */
-function playGame() {
-    // Get and clean user input
-    const playerChoice = playerInput.value.trim().toLowerCase();
-
-    /* ----- Input Validation ----- */
-    if (!options.includes(playerChoice)) {
-        alert("❌ Please enter rock, paper, or scissor");
-        return;
-    }
-
-    /* ----- UI: Show Loader ----- */
-    loader.style.display = "block";
-    resultBox.style.display = "none";
-
-    /* ----- Artificial delay (for animation feel) ----- */
-    setTimeout(() => {
-        loader.style.display = "none";
-
-        /* ----- Computer Choice ----- */
-        const computerChoice =
-            options[Math.floor(Math.random() * options.length)];
-
-        /* ----- Decide Result ----- */
-        let resultMessage = "";
-
-        if (playerChoice === computerChoice) {
-            resultMessage = "It's a tie 🤝";
-        } else if (rules[playerChoice] === computerChoice) {
-            resultMessage = "You win 🎉";
-            playerScore++;
-        } else {
-            resultMessage = "Computer wins 💻";
-            computerScore++;
-        }
-
-        /* ----- Update UI Text ----- */
-        playerChoiceText.innerText = `You chose: ${playerChoice}`;
-        computerChoiceText.innerText = `Computer chose: ${computerChoice}`;
-        resultText.innerText = resultMessage;
-
-        /* ----- Update Scoreboard ----- */
-        playerScoreText.innerText = playerScore;
-        computerScoreText.innerText = computerScore;
-
-        /* ----- Show Result Box ----- */
-        resultBox.style.display = "block";
-
-        /* ----- Clear Input ----- */
-        playerInput.value = "";
-
-    }, 600); // matches loader animation timing
+    background: linear-gradient(-45deg, #667eea, #764ba2, #6dd5fa, #2980b9);
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
 }
 
-/* ================================
-   Reset Game Function
-   ================================ */
-function resetScore() {
-    playerScore = 0;
-    computerScore = 0;
-
-    playerScoreText.innerText = 0;
-    computerScoreText.innerText = 0;
-
-    resultBox.style.display = "none";
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-/* ================================
-   Optional UX Enhancements
-   ================================ */
+/* ===== Hurrah Win Animation ===== */
+body.hurrah {
+    animation: hurrahFlash 0.8s ease-in-out 3;
+}
 
-/* Allow Enter key to submit */
-playerInput.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        playGame();
-    }
-});
+@keyframes hurrahFlash {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.3); }
+    100% { filter: brightness(1); }
+}
 
-/* Prevent empty whitespace input */
-playerInput.addEventListener("input", function () {
-    playerInput.value = playerInput.value.replace(/\s{2,}/g, " ");
-});
+/* ===== Floating Background ===== */
+.background, .stickers {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.background span {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.15);
+    bottom: -150px;
+    border-radius: 50%;
+    animation: float 20s linear infinite;
+}
+
+.background span:nth-child(1) { left: 10%; width: 60px; height: 60px; }
+.background span:nth-child(2) { left: 30%; animation-duration: 25s; }
+.background span:nth-child(3) { left: 50%; width: 80px; height: 80px; }
+.background span:nth-child(4) { left: 70%; animation-duration: 22s; }
+.background span:nth-child(5) { left: 90%; width: 50px; height: 50px; }
+
+@keyframes float {
+    to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* ===== Sticker Outlines ===== */
+.stickers span {
+    position: absolute;
+    opacity: 0.4;
+}
+
+.circle {
+    width: 60px;
+    height: 60px;
+    border: 2px solid white;
+    border-radius: 50%;
+    top: 20%;
+    left: 15%;
+}
+
+.square {
+    width: 50px;
+    height: 50px;
+    border: 2px solid white;
+    top: 65%;
+    left: 75%;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 55px solid rgba(255,255,255,0.6);
+    top: 40%;
+    left: 45%;
+}
+
+.star {
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid rgba(255,255,255,0.6);
+    transform: rotate(35deg);
+    top: 80%;
+    left: 20%;
+}
+
+/* ===== Text ===== */
+h1, .score-board, .feedback h3, .github-link {
+    color: white;
+}
+
+/* ===== Input ===== */
+input {
+    padding: 12px;
+    width: 260px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+}
+
+/* ===== Buttons with Glow ===== */
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 6px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,123,255,0.7);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    box-shadow: 0 0 25px rgba(0,123,255,1);
+    transform: translateY(-2px);
+}
+
+.reset-btn {
+    margin-top: 20px;
+    background: #dc3545;
+    box-shadow: 0 0 10px rgba(220,53,69,0.7);
+}
+
+/* ===== Loader ===== */
+.loader {
+    margin: 30px auto;
+    width: 50px;
+    height: 50px;
+    border: 6px solid #eee;
+    border-top: 6px solid #007bff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: none;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== Result ===== */
+.result-box {
+    margin-top: 30px;
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Feedback ===== */
+.feedback {
+    margin-top: 40px;
+    padding-bottom: 80px;
+}
+
+.feedback textarea {
+    width: 320px;
+    height: 90px;
+    border-radius: 8px;
+    border: none;
+    padding: 10px;
+    resize: none;
+}
+
+/* ===== Signature ===== */
+.credit {
+    position: fixed;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+    font-size: 18px;
+    color: rgba(255,255,255,0.85);
+}
